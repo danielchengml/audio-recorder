@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import "./App.css";
+import Audiostream from "./components/Audiostream";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="Recorder">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Audio Recorder</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          This Web Application will record audio files which can be saved and
+          sent off from device.
         </p>
+        <div className="Main">
+          <Audiostream />
+        </div>
       </div>
     );
   }
