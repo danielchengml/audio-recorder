@@ -5,8 +5,6 @@ import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
-import Icon from "material-ui/Icon";
-import Delete from "@material-ui/icons/Delete";
 import Stop from "@material-ui/icons/Stop";
 import KeyboardVoice from "@material-ui/icons/KeyboardVoice";
 
@@ -67,17 +65,22 @@ class Audiostream extends Component {
     const blob = new Blob(this.chunks, {
       type: audioType
     });
-    // generate audio url from blob
-    const audioURL = window.URL.createObjectURL(blob);
-    console.log(blob);
     // append audioURL to list of saved audo for rendering
-    const audios = this.state.audios.concat([blob]);
+    const audios = this.state.audios.concat(blob);
     this.setState({ audios });
-    console.log(this.state);
+    console.log(this.state.audios);
+  }
+
+  deleteAudio(i) {
+    // filter out current blob from the list of saved audios
+    const audios = this.state.audios;
+    const newAudio = audios.splice(i, 1);
+    this.setState({ newAudio });
   }
 
   render() {
     const { recording, audios } = this.state;
+    console.log(this.state);
 
     return (
       <div className="microphone">
@@ -90,7 +93,9 @@ class Audiostream extends Component {
             ref={a => {
               this.audio = a;
             }}
+            controls
           />
+          <br />
           {!recording && (
             <Button
               variant="raised"
@@ -120,22 +125,31 @@ class Audiostream extends Component {
             {audios.map((blob, i) => (
               <Card
                 key={`audio_${i}`}
-                style={{ textAlign: "center", margin: 10 }}
+                style={{ textAlign: "center", width: 500, margin: 10 }}
               >
+                {console.log(i)}
                 <CardContent>
-                  <Typography variant="title">Audio-file-{i + 1}</Typography>
+                  <Typography variant="title">
+                    Audio-file-[{blob.size}Kb] <em>({blob.type})</em>
+                  </Typography>
                   <audio
-                    style={{ marginTop: 15 }}
+                    style={{ marginTop: 15, width: 400 }}
                     src={window.URL.createObjectURL(blob)}
                     controls
                   />
-                  <Typography>{blob.size / 1000} Kb</Typography>
+                  <Typography style={{ textAlign: "right" }} variant="caption">
+                    {blob.size / 1000} Kb
+                  </Typography>
                 </CardContent>
-                <CardActions style={{ textAlign: "center" }}>
+                <CardActions style={{ backgroundColor: "#f2fcff" }}>
                   <Button size="small" color="primary">
                     Share
                   </Button>
-                  <Button size="small" color="secondary">
+                  <Button
+                    onClick={() => this.deleteAudio(i)}
+                    size="small"
+                    color="secondary"
+                  >
                     Delete
                   </Button>
                 </CardActions>
