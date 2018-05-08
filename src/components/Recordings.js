@@ -4,6 +4,7 @@ import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
+import Sharelink from "./Sharelink";
 
 class Recordings extends Component {
   deleteAudio = i => {
@@ -35,9 +36,7 @@ class Recordings extends Component {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ backgroundColor: "#f2fcff" }}>
-                  <Button size="small" color="primary">
-                    Share
-                  </Button>
+                  <Sharelink />
                   <Button
                     onClick={() => this.deleteAudio(i)}
                     size="small"
