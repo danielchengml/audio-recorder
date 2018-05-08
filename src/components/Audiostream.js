@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Audiocanvas from "./Audiocanvas";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import Paper from "material-ui/Paper";
 import Stop from "@material-ui/icons/Stop";
 import KeyboardVoice from "@material-ui/icons/KeyboardVoice";
+import KeyHandler, { KEYPRESS } from "react-key-handler";
+import Timer from "./Timer";
 
 const audioType = "audio/mp3";
 
@@ -32,6 +34,10 @@ class Audiostream extends Component {
       }
     };
   }
+
+  handleKey = e => {
+    console.log("Hello");
+  };
 
   startRecording = e => {
     e.preventDefault();
@@ -79,13 +85,44 @@ class Audiostream extends Component {
         <Typography style={{ marginTop: 20 }} variant="display1">
           Recorder:
         </Typography>
+        <KeyHandler
+          keyEventName={KEYPRESS}
+          keyCode={32}
+          onKeyHandle={e =>
+            this.state.recording
+              ? this.stopRecording(e)
+              : this.startRecording(e)
+          }
+        />
         <Paper style={{ marginTop: 10, textAlign: "center", padding: 20 }}>
-          <Audiocanvas />
+          {!recording && (
+            <Fragment>
+              <Typography variant="display1" color="secondary">
+                Press "Record" to Start
+              </Typography>
+              <Typography variant="title" color="secondary">
+                [Or use "Spacebar"]
+              </Typography>
+            </Fragment>
+          )}
+          {recording && (
+            <Fragment>
+              <Typography variant="display1" color="secondary">
+                Recording...
+              </Typography>
+              <Typography variant="title" color="default">
+                <Timer />
+              </Typography>
+              <Typography variant=" " color="secondary">
+                [Use "Spacebar" to Stop]
+              </Typography>
+            </Fragment>
+          )}
+
           <audio
             ref={a => {
               this.audio = a;
             }}
-            controls
           />
           <br />
           {!recording && (
