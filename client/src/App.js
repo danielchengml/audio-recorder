@@ -9,7 +9,9 @@ class App extends Component {
     audios
   };
 
-  handleAudioCreate = audio => this.state.audios.push(audio);
+  handleAudioCreate = audio => {
+    this.setState({ audios: [...this.state.audios, audio] });
+  };
 
   handleAudioDelete = i =>
     this.setState(({ audios }) => ({
