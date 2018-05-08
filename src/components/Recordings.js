@@ -36,7 +36,7 @@ class Recordings extends Component {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ backgroundColor: "#f2fcff" }}>
-                  <Sharelink />
+                  <Sharelink audio={audio}/>
                   <Button
                     onClick={() => this.deleteAudio(i)}
                     size="small"

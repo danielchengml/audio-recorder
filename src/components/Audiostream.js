@@ -113,7 +113,7 @@ class Audiostream extends Component {
               <Typography variant="title" color="default">
                 <Timer />
               </Typography>
-              <Typography variant=" " color="secondary">
+              <Typography variant="caption" color="secondary">
                 [Use "Spacebar" to Stop]
               </Typography>
             </Fragment>

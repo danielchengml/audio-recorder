@@ -9,7 +9,8 @@ import Dialog, {
 
 class Sharelink extends Component {
   state = {
-    open: false
+    open: false,
+    audio: this.props.audio
   };
 
   handleClickOpen = () => {
@@ -20,7 +21,12 @@ class Sharelink extends Component {
     this.setState({ open: false });
   };
 
+  getAudioLink = () => {
+
+  }
+
   render() {
+    console.log("state: ", this.state);
     return (
       <Fragment>
         <Button onClick={this.handleClickOpen} size="small" color="primary">
@@ -33,9 +39,18 @@ class Sharelink extends Component {
         >
           <DialogTitle id="form-dialog-title">Share Audio Link</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Audio URL: http://s3.Amazon-audio...
-            </DialogContentText>
+            <DialogContentText>{this.state.audio.key}</DialogContentText>
+            <br />
+            <code>
+              Link:{" "}
+              {this.state.audio.url === "" ? (
+                <Button onClick={this.getAudioLink}>Get Link</Button>
+              ) : (
+                <a href={this.state.audio.url} target="_blank">
+                  {this.state.audio.url}
+                </a>
+              )}
+            </code>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="secondary">
