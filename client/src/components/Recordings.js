@@ -7,15 +7,11 @@ import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 
 class Recordings extends Component {
-  state = {
-    audios: this.props.audios
-  };
-
   deleteAudio = i => {
-    // this.props.onAudioDelete(i);
+    this.props.onAudioDelete(i);
   };
   render() {
-    const { audios } = this.state;
+    const { audios } = this.props;
     return (
       <Fragment>
         <Typography style={{ marginTop: 20 }} variant="display1">
@@ -28,9 +24,8 @@ class Recordings extends Component {
                 key={`audio_${i}`}
                 style={{ textAlign: "center", width: 400, margin: 10 }}
               >
-                {console.log(i)}
                 <CardContent>
-                  <Typography variant="title">{audio.key}</Typography>
+                  <Typography variant="subheading">{audio.key}</Typography>
                   <audio
                     style={{ marginTop: 15, width: 360 }}
                     src={window.URL.createObjectURL(audio.body)}

@@ -13,10 +13,11 @@ class App extends Component {
     this.setState({ audios: [...this.state.audios, audio] });
   };
 
-  handleAudioDelete = i =>
-    this.setState(({ audios }) => ({
-      audios: audios.splice(i, 1)
-    }));
+  handleAudioDelete = i => {
+    this.setState({
+      audios: this.state.audios.filter((_, index) => index !== i)
+    });
+  };
 
   render() {
     return (
@@ -31,7 +32,10 @@ class App extends Component {
         {console.log("audios: ", this.state)}
         <div className="Main">
           <Audiostream onAudioCreate={this.handleAudioCreate} />
-          <Recordings audios={audios} onAudioDelete={this.handleAudioDelete} />
+          <Recordings
+            audios={this.state.audios}
+            onAudioDelete={this.handleAudioDelete}
+          />
         </div>
       </div>
     );
