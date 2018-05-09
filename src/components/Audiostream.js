@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import Audiocanvas from "./Audiocanvas";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import Paper from "material-ui/Paper";
@@ -35,10 +34,6 @@ class Audiostream extends Component {
     };
   }
 
-  handleKey = e => {
-    console.log("Hello");
-  };
-
   startRecording = e => {
     e.preventDefault();
     // wipe old datas
@@ -70,7 +65,7 @@ class Audiostream extends Component {
     const audioFile = {
       key: date + "-audio-file-" + size + "Kb.mp3",
       body: audioBlob,
-      contentType: `{audioBlob.type}`,
+      contentType: audioBlob.type,
       url: ""
     };
     // append audioURL to list of saved audo for rendering

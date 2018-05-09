@@ -6,6 +6,14 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from "material-ui/Dialog";
+import AWS from "aws-sdk";
+
+const S3_BUCKET = "upload-audio-recording-2";
+
+AWS.config.update({
+  accessKeyId: "AKIAIMUYGO3A2LVUAA4Q",
+  secretAccessKey: "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"
+});
 
 class Sharelink extends Component {
   state = {
@@ -22,8 +30,39 @@ class Sharelink extends Component {
   };
 
   getAudioLink = () => {
+    const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+    console.log("aws: ", s3);
+    console.log("type: ", this.state.audio);
+    const type = this.state.audio.body.type;
+    // Define Object
+    const params = {
+      Bucket: S3_BUCKET,
+      Key: this.state.audio.key,
+      Body: this.state.audio.body,
+      ContentType: type
+    };
+    console.log("obj: ", params);
+    // Upload the file to S3 Bucket
+    s3.putObject(params, (err, data) => {
+      if (err) console.log(err, err.stack);
+      else console.log(data);
+    });
+    // Get the presigned url of the audio file
+    s3.getSignedUrl("putObject", params, (err, url) => {
+      if (err) console.log(err);
+      else
+        this.setState(prevState => ({
+          audio: {
+            ...prevState.audio,
+            url: url
+          }
+        }));
+      console.log("thisthisstate:", this.state);
+    });
+    // Save the url into current state
 
-  }
+    // Save the url into global state
+  };
 
   render() {
     console.log("state: ", this.state);
