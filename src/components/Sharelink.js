@@ -33,46 +33,33 @@ class Sharelink extends Component {
   getAudioLink = () => {
     const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
-    console.log("aws: ", s3);
-    console.log("type: ", this.state.audio);
     const type = this.state.audio.body.type;
     // Define Object
     const params = {
-      Bucket: S3_BUCKET,
+      Bucket: S3_BUCKET + "/audio",
       Key: this.state.audio.key,
       Body: this.state.audio.body,
       ACL: "public-read",
       ContentType: type
     };
-    console.log("obj: ", params);
     // Upload the file to S3 Bucket
-    s3.putObject(params, (err, data) => {
-      if (err) console.log(err, err.stack);
-      else console.log(data);
+    s3.upload(params, (err, data) => {
+      if (err) console.log("putObjectError: ", err, err.stack);
+      else 
+      this.setState(prevState => ({
+        audio: {
+          ...prevState.audio,
+          url: data.Location
+        }
+      }));
     });
 
-    const urlLink =
-      "https://upload-audio-recording.s3.amazonaws.com/" + this.state.audio.key;
-
-    // Get the presigned url of the audio file
-    s3.getSignedUrl("putObject", params, (err, url) => {
-      if (err) console.log(err);
-      // Save the url into current state
-      else
-        this.setState(prevState => ({
-          audio: {
-            ...prevState.audio,
-            url: urlLink
-          }
-        }));
-    });
-    // Save the url into global state
   };
 
   render() {
-    console.log("state: ", this.state);
     return (
       <Fragment>
+        {console.log("Recording: ", this.state)}
         <Button onClick={this.handleClickOpen} size="small" color="primary">
           Share
         </Button>

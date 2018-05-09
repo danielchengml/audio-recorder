@@ -22,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className="Recorder">
+      {console.log("Global State: ", this.state)}
         <header className="App-header">
           <h1 className="App-title">Audio Recorder</h1>
         </header>
@@ -29,7 +30,6 @@ class App extends Component {
           This Web Application will record audio files which can be saved and
           sent off from device.
         </p>
-        {console.log("audios: ", this.state)}
         <div className="Main">
           <Audiostream onAudioCreate={this.handleAudioCreate} />
           <Recordings
