@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Button from "material-ui/Button";
 import Input from "material-ui/Input";
 import Dialog, {
@@ -7,6 +8,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from "material-ui/Dialog";
+import Typography from "material-ui/Typography";
+
 import AWS from "aws-sdk";
 import Credentials from "../config/keys";
 
@@ -20,7 +23,8 @@ const S3_BUCKET = "upload-audio-recording";
 class Sharelink extends Component {
   state = {
     open: false,
-    audio: this.props.audio
+    audio: this.props.audio,
+    copied: false
   };
 
   handleClickOpen = () => {
@@ -60,6 +64,15 @@ class Sharelink extends Component {
     e.target.select();
   };
 
+  onCopy = () => {
+    this.setState({ copied: true });
+    this.setState({ snackbarOpen: true });
+  };
+
+  onChange = () => {
+    this.setState({ copied: false });
+  };
+
   render() {
     return (
       <Fragment>
@@ -76,26 +89,69 @@ class Sharelink extends Component {
           <DialogContent>
             <DialogContentText>{this.state.audio.key}</DialogContentText>
             <br />
-            <code>
+            <div>
               Link:{" "}
               {this.state.audio.url === "" ? (
-                <Button variant="raised" onClick={this.getAudioLink}>
+                <Button
+                  style={{ marginLeft: 10 }}
+                  variant="raised"
+                  size="small"
+                  onClick={this.getAudioLink}
+                >
                   Get Link
                 </Button>
               ) : (
-                <Input
-                  style={{ fontSize: 15 }}
-                  type="text"
-                  multiline
-                  fullWidth
-                  onFocus={e => this.selectText(e)}
-                  value={this.state.audio.url}
-                />
+                <Fragment>
+                  <Input
+                    style={{ fontSize: 15 }}
+                    type="text"
+                    multiline
+                    fullWidth
+                    onFocus={e => this.selectText(e)}
+                    value={this.state.audio.url}
+                    onChange={this.onChange}
+                  />
+                  <CopyToClipboard
+                    text={this.state.audio.url}
+                    onCopy={this.onCopy}
+                  >
+                    <Button
+                      style={{
+                        marginTop: 10,
+                        fontSize: 13,
+                        backgroundColor: "#e8e8e8"
+                      }}
+                      size="small"
+                    >
+                      Copy Link
+                    </Button>
+                  </CopyToClipboard>
+                  <br />
+                </Fragment>
               )}
-            </code>
+            </div>
+            {this.state.copied ? (
+              <span>
+                <Typography
+                  style={{ marginTop: 10 }}
+                  variant="caption"
+                  color="primary"
+                >
+                  Link Copied!
+                </Typography>
+              </span>
+            ) : null}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button
+              variant="raised"
+              size="small"
+              onClick={this.handleClose}
+              style={{
+                margin: 10,
+                color: "#f22424"
+              }}
+            >
               Close
             </Button>
           </DialogActions>
