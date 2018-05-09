@@ -32,7 +32,7 @@ class Sharelink extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, copied: false });
   };
 
   getAudioLink = () => {
@@ -66,7 +66,6 @@ class Sharelink extends Component {
 
   onCopy = () => {
     this.setState({ copied: true });
-    this.setState({ snackbarOpen: true });
   };
 
   onChange = () => {
