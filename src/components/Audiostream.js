@@ -4,7 +4,7 @@ import Typography from "material-ui/Typography";
 import Paper from "material-ui/Paper";
 import Stop from "@material-ui/icons/Stop";
 import KeyboardVoice from "@material-ui/icons/KeyboardVoice";
-import KeyHandler, { KEYPRESS } from "react-key-handler";
+import KeyHandler, { KEYDOWN, KEYUP } from "react-key-handler";
 import Timer from "./Timer";
 
 const audioType = "audio/mp3";
@@ -81,13 +81,22 @@ class Audiostream extends Component {
           Recorder:
         </Typography>
         <KeyHandler
-          keyEventName={KEYPRESS}
+          keyEventName={KEYDOWN}
           keyCode={32}
-          onKeyHandle={e =>
-            this.state.recording
-              ? this.stopRecording(e)
-              : this.startRecording(e)
-          }
+          onKeyHandle={e => {
+            if (!this.state.recording) {
+              this.startRecording(e);
+            }
+          }}
+        />
+        <KeyHandler
+          keyEventName={KEYUP}
+          keyCode={32}
+          onKeyHandle={e => {
+            if (this.state.recording) {
+              this.stopRecording(e);
+            }
+          }}
         />
         <Paper style={{ marginTop: 10, textAlign: "center", padding: 20 }}>
           {!recording && (
@@ -96,7 +105,7 @@ class Audiostream extends Component {
                 Press "Record" to Start
               </Typography>
               <Typography variant="title" color="secondary">
-                [Or use "Spacebar"]
+                [Or Press and Hold "Spacebar"]
               </Typography>
             </Fragment>
           )}
@@ -109,7 +118,7 @@ class Audiostream extends Component {
                 <Timer />
               </Typography>
               <Typography variant="caption" color="secondary">
-                [Use "Spacebar" to Stop]
+                [Release "Spacebar" to Stop]
               </Typography>
             </Fragment>
           )}
