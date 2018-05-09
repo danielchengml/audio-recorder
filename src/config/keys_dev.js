@@ -1,4 +1,4 @@
 module.exports = {
-  accessKeyId: "AKIAJGXLSFZAN32VKS6Q",
-  secretAccessKey: "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"
+  accessKeyId: "AKIAJJ6V5HHA5EFOWDDA",
+  secretAccessKey: "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"
 };
