@@ -71,6 +71,7 @@ The S3 bucket will be configured for public access for ease of access. The _Buck
               }
           }
       ]
+  }
   ``` 
 
   #### S3 CORS Configuration
