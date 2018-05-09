@@ -17,7 +17,14 @@ class Recordings extends Component {
         <Typography style={{ marginTop: 20 }} variant="display1">
           Recorded Audio Files:
         </Typography>
-        <Paper style={{ marginTop: 10, minHeight: 250, padding: 15 }}>
+        <Paper
+          style={{
+            marginTop: 10,
+            minHeight: 250,
+            padding: 15,
+            backgroundColor: "#efefef"
+          }}
+        >
           <Grid container style={{ direction: "row" }}>
             {audios.map((audio, i) => (
               <Card
@@ -36,7 +43,7 @@ class Recordings extends Component {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ backgroundColor: "#f2fcff" }}>
-                  <Sharelink audio={audio}/>
+                  <Sharelink audio={audio} />
                   <Button
                     onClick={() => this.deleteAudio(i)}
                     size="small"

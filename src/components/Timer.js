@@ -20,7 +20,19 @@ class Timer extends Component {
 
   render() {
     const seconds = Math.round(this.state.elapsed);
-    return <div>{seconds}s</div>;
+    return (
+      <div
+        style={{
+          marginTop: 10,
+          marginBottom: 10,
+          fontSize: 30,
+          color: "#f22424",
+          alignItem: "center"
+        }}
+      >
+        RECORDING: {seconds}s
+      </div>
+    );
   }
 }
 

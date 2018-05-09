@@ -98,28 +98,77 @@ class Audiostream extends Component {
             }
           }}
         />
-        <Paper style={{ marginTop: 10, textAlign: "center", padding: 20 }}>
+        <Paper
+          style={{
+            marginTop: 10,
+            textAlign: "center",
+            padding: 20,
+            backgroundColor: "#efefef"
+          }}
+        >
           {!recording && (
             <Fragment>
-              <Typography variant="display1" color="secondary">
-                Press "Record" to Start
-              </Typography>
-              <Typography variant="title" color="secondary">
-                [Or Press and Hold "Spacebar"]
+              {!recording && (
+                <Button
+                  variant="raised"
+                  color="default"
+                  size="large"
+                  style={{
+                    marginTop: 25,
+                    marginBottom: 10,
+                    minWidth: 380,
+                    color: "#056dbc"
+                  }}
+                  onClick={e => this.startRecording(e)}
+                >
+                  <KeyboardVoice
+                    style={{
+                      marginRight: 5,
+                      marginLeft: -5,
+                      color: "#056dbc"
+                    }}
+                  />
+                  Start Recording
+                </Button>
+              )}
+              <Typography
+                variant="caption"
+                style={{
+                  marginBottom: 20,
+                  fontSize: 18,
+                  color: "rgba(0, 62, 109. 0.8)"
+                }}
+              >
+                Or Press & Hold the <strong>"SPACEBAR"</strong> Key to Start
               </Typography>
             </Fragment>
           )}
           {recording && (
-            <Fragment>
-              <Typography variant="display1" color="secondary">
-                Recording...
+            <Fragment style={{ marginBottom: 20 }}>
+              <Button
+                variant="raised"
+                color="default"
+                size="large"
+                style={{
+                  marginTop: 25,
+                  marginBottom: 10,
+                  minWidth: 380,
+                  color: "#f22424"
+                }}
+                onClick={e => this.stopRecording(e)}
+              >
+                <Stop
+                  style={{ color: "#f22424", marginRight: 5, marginLeft: -5 }}
+                />
+                Stop Recording
+              </Button>
+              <Typography
+                variant="caption"
+                style={{ color: "rgba(0, 62, 109. 0.8)", fontSize: 18 }}
+              >
+                Or Release the <strong>"SPACEBAR"</strong> Key to Stop
               </Typography>
-              <Typography variant="title" color="default">
-                <Timer />
-              </Typography>
-              <Typography variant="caption" color="secondary">
-                [Release "Spacebar" to Stop]
-              </Typography>
+              <Timer />
             </Fragment>
           )}
 
@@ -128,27 +177,6 @@ class Audiostream extends Component {
               this.audio = a;
             }}
           />
-          <br />
-          {!recording && (
-            <Button
-              variant="raised"
-              color="primary"
-              onClick={e => this.startRecording(e)}
-            >
-              <KeyboardVoice style={{ marginRight: 5, marginLeft: -5 }} />
-              Record
-            </Button>
-          )}
-          {recording && (
-            <Button
-              variant="raised"
-              color="secondary"
-              onClick={e => this.stopRecording(e)}
-            >
-              <Stop style={{ marginRight: 5, marginLeft: -5 }} />
-              Stop
-            </Button>
-          )}
         </Paper>
       </div>
     );

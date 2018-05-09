@@ -45,15 +45,14 @@ class Sharelink extends Component {
     // Upload the file to S3 Bucket
     s3.upload(params, (err, data) => {
       if (err) console.log("putObjectError: ", err, err.stack);
-      else 
-      this.setState(prevState => ({
-        audio: {
-          ...prevState.audio,
-          url: data.Location
-        }
-      }));
+      else
+        this.setState(prevState => ({
+          audio: {
+            ...prevState.audio,
+            url: data.Location
+          }
+        }));
     });
-
   };
 
   render() {
@@ -75,7 +74,9 @@ class Sharelink extends Component {
             <code>
               Link:{" "}
               {this.state.audio.url === "" ? (
-                <Button onClick={this.getAudioLink}>Get Link</Button>
+                <Button variant="raised" onClick={this.getAudioLink}>
+                  Get Link
+                </Button>
               ) : (
                 <a href={this.state.audio.url} target="_blank">
                   {this.state.audio.url}
