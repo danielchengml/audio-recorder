@@ -49,7 +49,7 @@ module.exports = {
 
 ### Configuring S3 Bucket
 
-The S3 bucket will be configured for public access to allow ease of access. The _Bucket Policy_ and _CORS Configuration_ will be shown below:
+The S3 bucket will be configured for public access to allow ease of access. The _Bucket Policy_ and _CORS Configuration_ are shown below:
 
 #### S3 Bucket Policy
 
@@ -111,14 +111,14 @@ Here are some ideas to add functionalities to the application:
 * Adding Video Record and storage feature.
 * Make the app compatible with Safari and IE
 
-###- Add User Registration and Login Features permanent access to user's files.
+### Add User Registration and Login Features permanent access to user's files.
 
 * Allow sorting and filtering of audio/video files.
 * Allow Users to write/edit notes to each audio/video files.
 * Allow keyword Tagging for each audio file.
 * Allow Users to communicate and send files to others via the platform.
 
-## Built with
+## Built With
 
 * ReactJS - The Web Framework Used
 * NPM - Dependency Management
@@ -126,7 +126,7 @@ Here are some ideas to add functionalities to the application:
 
 ## Versioning
 
-1.0.0
+1.1.0
 
 ## Authors
 
