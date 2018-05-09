@@ -9,13 +9,12 @@ import Dialog, {
 import AWS from "aws-sdk";
 import Credentials from "../config/keys";
 
-const S3_BUCKET = "upload-audio-recording";
-console.log("accessKey:", Credentials.accessKeyId);
-
 AWS.config.update({
   accessKeyId: Credentials.accessKeyId,
   secretAccessKey: Credentials.secretAccessKey
 });
+
+const S3_BUCKET = "upload-audio-recording";
 
 class Sharelink extends Component {
   state = {
@@ -33,6 +32,7 @@ class Sharelink extends Component {
 
   getAudioLink = () => {
     const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+
     console.log("aws: ", s3);
     console.log("type: ", this.state.audio);
     const type = this.state.audio.body.type;
@@ -41,6 +41,7 @@ class Sharelink extends Component {
       Bucket: S3_BUCKET,
       Key: this.state.audio.key,
       Body: this.state.audio.body,
+      ACL: "public-read",
       ContentType: type
     };
     console.log("obj: ", params);
@@ -49,20 +50,22 @@ class Sharelink extends Component {
       if (err) console.log(err, err.stack);
       else console.log(data);
     });
+
+    const urlLink =
+      "https://upload-audio-recording.s3.amazonaws.com/" + this.state.audio.key;
+
     // Get the presigned url of the audio file
     s3.getSignedUrl("putObject", params, (err, url) => {
       if (err) console.log(err);
+      // Save the url into current state
       else
         this.setState(prevState => ({
           audio: {
             ...prevState.audio,
-            url: url
+            url: urlLink
           }
         }));
-      console.log("thisthisstate:", this.state);
     });
-    // Save the url into current state
-
     // Save the url into global state
   };
 
