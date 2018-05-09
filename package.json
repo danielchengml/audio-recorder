@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.46",
     "@material-ui/icons": "^1.0.0-beta.43",
     "aws-sdk": "^2.235.1",
     "axios": "^0.18.0",
