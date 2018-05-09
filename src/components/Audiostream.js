@@ -144,7 +144,7 @@ class Audiostream extends Component {
             </Fragment>
           )}
           {recording && (
-            <Fragment style={{ marginBottom: 20 }}>
+            <Fragment>
               <Button
                 variant="raised"
                 color="default"

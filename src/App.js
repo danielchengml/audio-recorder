@@ -3,7 +3,6 @@ import "./App.css";
 import Audiostream from "./components/Audiostream";
 import Recordings from "./components/Recordings";
 import { audios } from "./store";
-import { withStyles } from "material-ui/styles";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 
 const THEME = createMuiTheme({
@@ -32,7 +31,6 @@ class App extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <MuiThemeProvider theme={THEME}>
         <div className="Recorder">

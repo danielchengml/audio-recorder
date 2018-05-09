@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Button from "material-ui/Button";
+import Input from "material-ui/Input";
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -55,6 +56,10 @@ class Sharelink extends Component {
     });
   };
 
+  selectText = e => {
+    e.target.select();
+  };
+
   render() {
     return (
       <Fragment>
@@ -78,9 +83,14 @@ class Sharelink extends Component {
                   Get Link
                 </Button>
               ) : (
-                <a href={this.state.audio.url} target="_blank">
-                  {this.state.audio.url}
-                </a>
+                <Input
+                  style={{ fontSize: 15 }}
+                  type="text"
+                  multiline
+                  fullWidth
+                  onFocus={e => this.selectText(e)}
+                  value={this.state.audio.url}
+                />
               )}
             </code>
           </DialogContent>
