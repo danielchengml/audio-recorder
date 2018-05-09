@@ -7,12 +7,14 @@ import Dialog, {
   DialogTitle
 } from "material-ui/Dialog";
 import AWS from "aws-sdk";
+import Credentials from "../config/keys";
 
-const S3_BUCKET = "upload-audio-recording-2";
+const S3_BUCKET = "upload-audio-recording";
+console.log("accessKey:", Credentials.accessKeyId);
 
 AWS.config.update({
-  accessKeyId: "AKIAIMUYGO3A2LVUAA4Q",
-  secretAccessKey: "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"
+  accessKeyId: Credentials.accessKeyId,
+  secretAccessKey: Credentials.secretAccessKey
 });
 
 class Sharelink extends Component {
